@@ -1,0 +1,493 @@
+/* =========================================
+   ALBUM PAGE
+========================================= */
+
+.album-page {
+    min-height: 100vh;
+    padding-bottom: 150px;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.album-hero {
+    min-height: 440px;
+
+    position: relative;
+
+    display: flex;
+    align-items: flex-end;
+
+    padding: 80px 7vw 55px;
+
+    overflow: hidden;
+}
+
+
+.album-hero-bg {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    filter: blur(40px);
+
+    transform: scale(1.15);
+
+    opacity: .35;
+}
+
+
+.album-hero-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(7,7,7,.15),
+            rgba(7,7,7,.96)
+        );
+}
+
+
+.album-hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+    max-width: 1400px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 35px;
+}
+
+
+/* =========================================
+   COVER
+========================================= */
+
+.album-cover {
+    width: 230px;
+    height: 230px;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.55);
+}
+
+
+.album-cover img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================================
+   INFO
+========================================= */
+
+.album-info {
+    padding-bottom: 5px;
+}
+
+
+.album-back {
+    display: inline-flex;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 25px;
+
+    opacity: .6;
+
+    transition: .2s;
+}
+
+
+.album-back:hover {
+    opacity: 1;
+
+    transform: translateX(-4px);
+}
+
+
+.album-label {
+    display: block;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 4px;
+
+    opacity: .65;
+
+    margin-bottom: 12px;
+}
+
+
+.album-info h1 {
+    margin: 0 0 18px;
+
+    font-size: clamp(45px, 7vw, 90px);
+
+    line-height: .9;
+
+    font-weight: 900;
+
+    letter-spacing: -4px;
+}
+
+
+.album-info p {
+    margin: 0;
+
+    font-size: 14px;
+
+    opacity: .6;
+}
+
+
+.album-info p strong {
+    color: white;
+}
+
+
+/* =========================================
+   SONGS
+========================================= */
+
+.album-songs {
+    max-width: 1400px;
+
+    margin: auto;
+
+    padding: 55px 7vw;
+}
+
+
+.album-section-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 22px;
+}
+
+
+.album-section-header h2 {
+    margin: 0;
+
+    font-size: 24px;
+
+    font-weight: 900;
+
+    letter-spacing: -1px;
+}
+
+
+.album-section-header span {
+    font-size: 12px;
+
+    opacity: .4;
+}
+
+
+/* =========================================
+   SONG LIST
+========================================= */
+
+.album-song-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+.album-song {
+    display: grid;
+
+    grid-template-columns:
+        45px
+        60px
+        minmax(0,1fr)
+        220px
+        50px;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 10px 14px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+
+.album-song:hover {
+    background: rgba(255,255,255,.06);
+}
+
+
+.song-index {
+    text-align: center;
+
+    font-size: 13px;
+
+    opacity: .35;
+}
+
+
+/* =========================================
+   COVER
+========================================= */
+
+.song-cover {
+    width: 60px;
+    height: 60px;
+
+    overflow: hidden;
+
+    border-radius: 5px;
+}
+
+
+.song-cover img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================================
+   INFO
+========================================= */
+
+.song-details {
+    min-width: 0;
+}
+
+
+.song-details h3 {
+    margin: 0 0 5px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.song-details p {
+    margin: 0;
+
+    font-size: 11px;
+
+    opacity: .4;
+}
+
+
+/* =========================================
+   GENRE
+========================================= */
+
+.song-genre {
+    font-size: 12px;
+
+    opacity: .45;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================
+   PLAY
+========================================= */
+
+.song-play {
+    width: 38px;
+    height: 38px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: white;
+
+    color: black;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transition: .2s;
+}
+
+
+.album-song:hover .song-play {
+    opacity: 1;
+}
+
+
+.song-play:hover {
+    transform: scale(1.08);
+}
+
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.album-empty {
+    padding: 80px 20px;
+
+    text-align: center;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius: 10px;
+}
+
+
+.album-empty .empty-icon {
+    font-size: 40px;
+
+    margin-bottom: 20px;
+
+    opacity: .4;
+}
+
+
+.album-empty h3 {
+    margin: 0 0 10px;
+
+    font-size: 18px;
+}
+
+
+.album-empty p {
+    margin: 0;
+
+    opacity: .45;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .album-hero {
+        min-height: 600px;
+
+        padding-top: 60px;
+    }
+
+
+    .album-hero-content {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 25px;
+    }
+
+
+    .album-cover {
+        width: 180px;
+        height: 180px;
+    }
+
+
+    .album-info h1 {
+        letter-spacing: -2px;
+    }
+
+
+    .album-song {
+        grid-template-columns:
+            30px
+            50px
+            minmax(0,1fr)
+            40px;
+
+        gap: 10px;
+    }
+
+
+    .song-cover {
+        width: 50px;
+        height: 50px;
+    }
+
+
+    .song-genre {
+        display: none;
+    }
+
+
+    .song-play {
+        opacity: 1;
+    }
+
+}

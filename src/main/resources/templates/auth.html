@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>K2BT — Music Without Limits</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/auth.css}">
+
+</head>
+
+
+<body>
+
+
+<!-- ================= BACKGROUND ================= -->
+
+<div class="background">
+
+    <div class="bg-image"></div>
+
+    <div class="bg-gradient"></div>
+
+    <div class="grain"></div>
+
+    <canvas id="visualizer"></canvas>
+
+</div>
+
+
+
+<!-- ================= NAV ================= -->
+
+<header class="navbar">
+
+
+    <a href="/" class="logo">
+
+        K2BT
+
+    </a>
+
+
+    <nav>
+
+        <a href="#">
+            DISCOVER
+        </a>
+
+        <a href="#">
+            MUSIC
+        </a>
+
+        <a href="#">
+            ARTISTS
+        </a>
+
+    </nav>
+
+
+    <div class="live">
+
+        <span></span>
+
+        LIVE
+
+    </div>
+
+</header>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="page">
+
+
+    <!-- ================= LEFT ================= -->
+
+    <section class="hero">
+
+
+        <div class="hero-small">
+
+            THE SOUND OF NOW
+
+        </div>
+
+
+        <h1>
+
+            MUSIC
+
+            <br>
+
+            <span>WITHOUT</span>
+
+            <br>
+
+            LIMITS.
+
+        </h1>
+
+
+        <p>
+
+            Discover sounds that move you.
+
+            <br>
+
+            Create moments that stay forever.
+
+        </p>
+
+
+        <div class="hero-line"></div>
+
+
+        <div class="hero-info">
+
+
+            <span>
+
+                K2BT ORIGINAL
+
+            </span>
+
+
+            <span>
+
+                2026
+
+            </span>
+
+        </div>
+
+    </section>
+
+
+
+
+    <!-- ================= AUTH ================= -->
+
+    <section class="auth-area">
+
+
+        <div class="auth-card">
+
+
+            <!-- ================= LOGIN ================= -->
+
+            <div id="loginForm"
+                 class="form-container active">
+
+
+                <div class="form-top">
+
+
+                    <span class="form-number">
+
+                        01
+
+                    </span>
+
+
+                    <span class="form-label">
+
+                        WELCOME BACK
+
+                    </span>
+
+                </div>
+
+
+                <h2>
+
+                    Sign in.
+
+                </h2>
+
+
+                <p class="form-description">
+
+                    Continue your musical journey.
+
+                </p>
+
+
+
+
+                <form th:action="@{/login}"
+                      method="post">
+
+
+                    <div class="field">
+
+
+                        <label>
+
+                            Email
+
+                        </label>
+
+
+                        <input
+                                type="email"
+                                name="email"
+                                placeholder="you@example.com"
+                                required>
+
+                    </div>
+
+
+
+
+                    <div class="field">
+
+
+                        <div class="field-header">
+
+
+                            <label>
+
+                                Password
+
+                            </label>
+
+
+                            <a href="#">
+
+                                Forgot?
+
+                            </a>
+
+                        </div>
+
+
+                        <input
+                                type="password"
+                                name="password"
+                                id="loginPassword"
+                                placeholder="Your password"
+                                required>
+
+                    </div>
+
+
+
+
+                    <button class="main-button"
+                            type="submit">
+
+
+                        <span>
+
+                            SIGN IN
+
+                        </span>
+
+
+                        <span class="arrow">
+
+                            →
+
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+
+
+                <!-- ================= OR ================= -->
+
+                <div class="or">
+
+
+                    <span></span>
+
+
+                    OR
+
+
+                    <span></span>
+
+                </div>
+
+
+
+
+                <!-- ================= SOCIAL ================= -->
+
+                <div class="social">
+
+
+                    <button type="button">
+
+                        <b>
+
+                            G
+
+                        </b>
+
+                        Google
+
+                    </button>
+
+
+                    <button type="button">
+
+                        <b>
+
+                            
+
+                        </b>
+
+                        Apple
+
+                    </button>
+
+                </div>
+
+
+
+
+                <!-- ================= SWITCH ================= -->
+
+                <div class="switch">
+
+
+                    Don't have an account?
+
+
+                    <button id="showRegister"
+                            type="button">
+
+                        Create one
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+
+            <!-- ================= REGISTER ================= -->
+
+            <div id="registerForm"
+                 class="form-container">
+
+
+                <div class="form-top">
+
+
+                    <span class="form-number">
+
+                        02
+
+                    </span>
+
+
+                    <span class="form-label">
+
+                        JOIN K2BT
+
+                    </span>
+
+                </div>
+
+
+                <h2>
+
+                    Create.
+
+                </h2>
+
+
+                <p class="form-description">
+
+                    Build your own soundtrack.
+
+                </p>
+
+
+
+
+                <form th:action="@{/register}"
+                      method="post">
+
+
+                    <div class="field">
+
+
+                        <label>
+
+                            Name
+
+                        </label>
+
+
+                        <input
+                                type="text"
+                                name="name"
+                                placeholder="Your name"
+                                required>
+
+                    </div>
+
+
+
+
+                    <div class="field">
+
+
+                        <label>
+
+                            Email
+
+                        </label>
+
+
+                        <input
+                                type="email"
+                                name="email"
+                                placeholder="you@example.com"
+                                required>
+
+                    </div>
+
+
+
+
+                    <div class="field">
+
+
+                        <label>
+
+                            Password
+
+                        </label>
+
+
+                        <input
+                                type="password"
+                                name="password"
+                                id="registerPassword"
+                                placeholder="Create password"
+                                required>
+
+                    </div>
+
+
+
+
+                    <div class="field">
+
+
+                        <label>
+
+                            Confirm password
+
+                        </label>
+
+
+                        <input
+                                type="password"
+                                name="confirmPassword"
+                                placeholder="Repeat password"
+                                required>
+
+                    </div>
+
+
+
+
+                    <button class="main-button"
+                            type="submit">
+
+
+                        <span>
+
+                            CREATE ACCOUNT
+
+                        </span>
+
+
+                        <span class="arrow">
+
+                            →
+
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+
+
+                <!-- ================= SWITCH ================= -->
+
+                <div class="switch">
+
+
+                    Already have an account?
+
+
+                    <button id="showLogin"
+                            type="button">
+
+                        Sign in
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+
+    <span>
+
+        © 2026 K2BT
+
+    </span>
+
+
+    <span>
+
+        MUSIC · CULTURE · SOUND
+
+    </span>
+
+</footer>
+
+
+
+<!-- ================= AUDIO ================= -->
+
+<audio id="ambientAudio"
+       src="/audio/ambient.mp3"
+       loop
+       crossorigin="anonymous">
+</audio>
+
+
+
+<script th:src="@{/js/auth.js}"></script>
+
+
+</body>
+
+</html>

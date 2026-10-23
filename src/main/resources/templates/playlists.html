@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Playlists - SONORA</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/playlists.css}">
+
+</head>
+
+<body>
+
+<div class="playlist-page">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="playlist-header">
+
+        <a href="/home"
+           class="back-button">
+            ←
+        </a>
+
+
+        <div class="header-content">
+
+            <span class="header-label">
+                YOUR MUSIC
+            </span>
+
+            <h1>
+                Playlists
+            </h1>
+
+            <p>
+                Your personal music collection
+            </p>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="playlist-main">
+
+
+        <!-- =================================================
+             SUCCESS MESSAGE
+        ================================================== -->
+
+        <div class="message success-message"
+             th:if="${success}"
+             th:text="${success}">
+            Thành công
+        </div>
+
+
+
+        <!-- =================================================
+             ERROR MESSAGE
+        ================================================== -->
+
+        <div class="message error-message"
+             th:if="${error}"
+             th:text="${error}">
+            Có lỗi xảy ra
+        </div>
+
+
+
+        <!-- =================================================
+             CREATE PLAYLIST
+        ================================================== -->
+
+        <section class="create-section">
+
+            <div class="create-header">
+
+                <span class="section-label">
+                    COLLECTION
+                </span>
+
+                <h2>
+                    Tạo playlist mới
+                </h2>
+
+            </div>
+
+
+            <form class="create-form"
+                  th:action="@{/playlist/create}"
+                  method="post">
+
+
+                <div class="input-wrapper">
+
+                    <input
+                            type="text"
+                            id="playlistName"
+                            name="name"
+                            placeholder="Tên playlist..."
+                            maxlength="100"
+                            autocomplete="off"
+                            required>
+
+
+                    <span class="character-count"
+                          id="characterCount">
+                        0/100
+                    </span>
+
+                </div>
+
+
+
+                <button
+                        type="submit"
+                        class="create-button">
+
+                    <span class="plus-icon">
+                        +
+                    </span>
+
+                    <span>
+                        Tạo playlist
+                    </span>
+
+                </button>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- =================================================
+             PLAYLIST LIST
+        ================================================== -->
+
+        <section class="playlist-section">
+
+
+            <!-- SECTION HEADER -->
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        YOUR COLLECTION
+                    </span>
+
+                    <h2>
+                        Playlist của bạn
+                    </h2>
+
+                </div>
+
+
+                <span class="playlist-count"
+                      th:text="${playlists != null ? playlists.size() : 0}">
+                    0
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CÓ PLAYLIST
+            ================================================== -->
+
+            <div class="playlist-grid"
+                 th:if="${playlists != null and !playlists.isEmpty()}">
+
+
+                <a class="playlist-card"
+                   th:each="playlist : ${playlists}"
+                   th:href="@{/playlist/{id}(id=${playlist.id})}">
+
+
+                    <!-- COVER -->
+
+                    <div class="playlist-cover">
+
+                        <div class="cover-icon">
+                            ♪
+                        </div>
+
+
+                        <div class="play-overlay">
+
+                            <span>
+                                ▶
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- INFO -->
+
+                    <div class="playlist-info">
+
+                        <h3 th:text="${playlist.name}">
+                            Playlist
+                        </h3>
+
+                        <p>
+                            Playlist
+                        </p>
+
+                    </div>
+
+
+                </a>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 KHÔNG CÓ PLAYLIST
+            ================================================== -->
+
+            <div class="empty-state"
+                 th:if="${playlists == null or playlists.isEmpty()}">
+
+
+                <div class="empty-icon">
+                    ♪
+                </div>
+
+
+                <h3>
+                    Chưa có playlist
+                </h3>
+
+
+                <p>
+                    Tạo playlist đầu tiên của bạn để lưu
+                    những bài hát yêu thích.
+                </p>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+
+<script th:src="@{/js/playlists.js}"></script>
+
+</body>
+
+</html>

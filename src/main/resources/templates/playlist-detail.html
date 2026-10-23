@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${playlist.name} + ' - SONORA'">
+        Playlist - SONORA
+    </title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/playlist-detail.css}">
+
+</head>
+
+
+<body>
+
+<div class="playlist-detail-page">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="playlist-detail-header">
+
+        <a href="/playlists"
+           class="back-button">
+            ←
+        </a>
+
+        <div class="playlist-header-content">
+
+            <div class="playlist-cover-large">
+                <span>♪</span>
+            </div>
+
+            <div class="playlist-header-info">
+
+                <span class="header-label">
+                    PLAYLIST
+                </span>
+
+                <h1 th:text="${playlist.name}">
+                    Playlist
+                </h1>
+
+                <p>
+
+                    <span th:text="${songs != null ? songs.size() : 0}">
+                        0
+                    </span>
+
+                    bài hát
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="playlist-detail-main">
+
+
+        <!-- =================================================
+             MESSAGES
+        ================================================== -->
+
+        <div class="message success-message"
+             th:if="${success}"
+             th:text="${success}">
+            Thành công
+        </div>
+
+        <div class="message error-message"
+             th:if="${error}"
+             th:text="${error}">
+            Có lỗi xảy ra
+        </div>
+
+
+        <!-- =================================================
+             ACTION BAR
+        ================================================== -->
+
+        <div class="playlist-actions">
+
+            <button
+                    type="button"
+                    class="action-button secondary-button"
+                    id="openAddSong">
+
+                ＋ Thêm bài hát
+
+            </button>
+
+
+            <form
+                    th:action="@{/playlist/{id}/delete(id=${playlist.id})}"
+                    method="post"
+                    class="delete-playlist-form">
+
+                <button
+                        type="submit"
+                        class="action-button delete-button"
+                        data-confirm-delete>
+
+                    Xóa playlist
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- =================================================
+             SONG LIST
+        ================================================== -->
+
+        <section class="song-section">
+
+            <div class="song-section-header">
+
+                <div>
+
+                    <span class="section-label">
+                        TRACKS
+                    </span>
+
+                    <h2>
+                        Bài hát
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 CÓ BÀI HÁT
+            ================================================== -->
+
+            <div class="playlist-song-list"
+                 th:if="${songs != null && !songs.isEmpty()}">
+
+                <div
+                        class="playlist-song"
+                        th:each="playlistSong, stat : ${songs}"
+
+                        th:attr="
+                            data-audio=${playlistSong.song.audioUrl},
+                            data-song-id=${playlistSong.song.id},
+                            data-title=${playlistSong.song.title},
+                            data-artist=${playlistSong.song.artist != null
+                                ? playlistSong.song.artist.name
+                                : 'Unknown Artist'},
+                            data-album=${playlistSong.song.album != null
+                                ? playlistSong.song.album.name
+                                : ''},
+                            data-cover=${playlistSong.song.coverUrl}
+                        ">
+
+
+                    <!-- NUMBER -->
+
+                    <div class="song-number">
+
+                        <span class="number"
+                              th:text="${stat.count}">
+                            1
+                        </span>
+
+                        <span class="play-icon">
+                            ▶
+                        </span>
+
+                    </div>
+
+
+                    <!-- COVER -->
+
+                    <div class="song-cover">
+
+                        <img
+                                th:src="${playlistSong.song.coverUrl}"
+                                th:alt="${playlistSong.song.title}">
+
+                    </div>
+
+
+                    <!-- INFO -->
+
+                    <div class="song-info">
+
+                        <h3
+                                th:text="${playlistSong.song.title}">
+                            Song
+                        </h3>
+
+                        <p
+                                th:text="${playlistSong.song.artist != null
+                                    ? playlistSong.song.artist.name
+                                    : 'Unknown Artist'}">
+                            Artist
+                        </p>
+
+                    </div>
+
+
+                    <!-- ALBUM -->
+
+                    <div class="song-album">
+
+                        <span
+                                th:if="${playlistSong.song.album != null}"
+                                th:text="${playlistSong.song.album.name}">
+                            Album
+                        </span>
+
+                        <span
+                                th:if="${playlistSong.song.album == null}">
+                            —
+                        </span>
+
+                    </div>
+
+
+                    <!-- REMOVE -->
+
+                    <form
+                            th:action="@{/playlist/{playlistId}/remove-song(
+                                playlistId=${playlist.id}
+                            )}"
+                            method="post"
+                            class="remove-song-form">
+
+                        <input
+                                type="hidden"
+                                name="songId"
+                                th:value="${playlistSong.song.id}">
+
+                        <button
+                                type="submit"
+                                class="remove-song-button"
+                                title="Xóa khỏi playlist">
+
+                            ×
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 EMPTY
+            ================================================== -->
+
+            <div
+                    class="empty-songs"
+                    th:if="${songs == null || songs.isEmpty()}">
+
+                <div class="empty-song-icon">
+                    ♪
+                </div>
+
+                <h3>
+                    Playlist đang trống
+                </h3>
+
+                <p>
+                    Hãy thêm những bài hát bạn yêu thích
+                    vào playlist này.
+                </p>
+
+                <button
+                        type="button"
+                        class="browse-button"
+                        id="openAddSongEmpty">
+
+                    ＋ Thêm bài hát
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         ADD SONG MODAL
+    ====================================================== -->
+
+    <div
+            class="add-song-modal"
+            id="addSongModal">
+
+
+        <!-- OVERLAY -->
+
+        <div
+                class="add-song-overlay"
+                id="closeAddSongOverlay">
+        </div>
+
+
+        <!-- PANEL -->
+
+        <div class="add-song-panel">
+
+
+            <!-- HEADER -->
+
+            <div class="add-song-header">
+
+                <div>
+
+                    <span class="section-label">
+                        PLAYLIST
+                    </span>
+
+                    <h2>
+                        Thêm bài hát
+                    </h2>
+
+                </div>
+
+                <button
+                        type="button"
+                        class="close-add-song"
+                        id="closeAddSong">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <div class="add-song-search">
+
+                <span>
+                    ⌕
+                </span>
+
+                <input
+                        type="text"
+                        id="addSongSearch"
+                        placeholder="Tìm bài hát hoặc nghệ sĩ..."
+                        autocomplete="off">
+
+            </div>
+
+
+            <!-- SONG LIST -->
+
+            <div
+                    class="add-song-list"
+                    id="addSongList">
+
+
+                <div
+                        class="add-song-item"
+                        th:each="song : ${allSongs}"
+
+                        th:attr="
+                            data-title=${song.title},
+                            data-artist=${song.artist != null
+                                ? song.artist.name
+                                : ''}
+                        ">
+
+
+                    <!-- COVER -->
+
+                    <div class="add-song-cover">
+
+                        <img
+                                th:src="${song.coverUrl}"
+                                th:alt="${song.title}">
+
+                    </div>
+
+
+                    <!-- INFO -->
+
+                    <div class="add-song-info">
+
+                        <strong
+                                th:text="${song.title}">
+                            Song
+                        </strong>
+
+                        <span
+                                th:text="${song.artist != null
+                                    ? song.artist.name
+                                    : 'Unknown Artist'}">
+                            Artist
+                        </span>
+
+                    </div>
+
+
+                    <!-- ADD FORM -->
+
+                    <form
+                            th:action="@{/playlist/{playlistId}/add-song(
+                                playlistId=${playlist.id}
+                            )}"
+                            method="post">
+
+                        <input
+                                type="hidden"
+                                name="songId"
+                                th:value="${song.id}">
+
+                        <button
+                                type="submit"
+                                class="add-song-button">
+
+                            ＋ THÊM
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- NO SONGS -->
+
+                <div
+                        class="add-song-empty"
+                        th:if="${allSongs == null || allSongs.isEmpty()}">
+
+                    <div>
+                        ♪
+                    </div>
+
+                    <h3>
+                        Chưa có bài hát
+                    </h3>
+
+                    <p>
+                        Hệ thống chưa có bài hát nào.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MUSIC PLAYER
+    ====================================================== -->
+
+    <div class="music-player"
+         id="musicPlayer">
+
+
+        <!-- CURRENT SONG -->
+
+        <div class="player-song-info">
+
+            <div class="player-cover-wrapper">
+
+                <img
+                        id="playerCover"
+                        class="player-cover"
+                        src=""
+                        alt="">
+
+            </div>
+
+            <div class="player-text">
+
+                <div
+                        id="playerTitle"
+                        class="player-title">
+
+                    Chưa phát bài hát
+
+                </div>
+
+                <div
+                        id="playerArtist"
+                        class="player-artist">
+
+                    —
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONTROLS -->
+
+        <div class="player-center">
+
+
+            <div class="player-controls">
+
+                <button
+                        type="button"
+                        id="shuffleButton"
+                        class="player-control"
+                        title="Shuffle">
+
+                    ⤨
+
+                </button>
+
+
+                <button
+                        type="button"
+                        id="previousButton"
+                        class="player-control"
+                        title="Previous">
+
+                    ⏮
+
+                </button>
+
+
+                <button
+                        type="button"
+                        id="mainPlayButton"
+                        class="main-play-button"
+                        title="Play">
+
+                    ▶
+
+                </button>
+
+
+                <button
+                        type="button"
+                        id="nextButton"
+                        class="player-control"
+                        title="Next">
+
+                    ⏭
+
+                </button>
+
+
+                <button
+                        type="button"
+                        id="repeatButton"
+                        class="player-control"
+                        title="Repeat">
+
+                    ↻
+
+                </button>
+
+            </div>
+
+
+            <!-- PROGRESS -->
+
+            <div class="player-progress">
+
+                <span
+                        id="currentTime"
+                        class="time">
+
+                    0:00
+
+                </span>
+
+
+                <input
+                        type="range"
+                        id="progressBar"
+                        min="0"
+                        max="100"
+                        value="0"
+                        step="0.1">
+
+
+                <span
+                        id="duration"
+                        class="time">
+
+                    0:00
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- VOLUME -->
+
+        <div class="player-volume">
+
+            <button
+                    type="button"
+                    id="volumeButton"
+                    class="volume-button"
+                    title="Volume">
+
+                🔊
+
+            </button>
+
+            <input
+                    type="range"
+                    id="volumeBar"
+                    min="0"
+                    max="1"
+                    value="1"
+                    step="0.01">
+
+        </div>
+
+
+        <!-- REAL AUDIO -->
+
+        <audio
+                id="audioPlayer"
+                preload="metadata">
+        </audio>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script th:src="@{/js/playlist-detail.js}"></script>
+
+</body>
+
+</html>

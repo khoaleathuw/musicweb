@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>K2BT — Music Without Limits</title>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+
+    <link rel="stylesheet"
+          th:href="@{/css/home.css}">
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- =====================================================
+         BACKGROUND
+    ====================================================== -->
+
+    <div class="ambient ambient-1"></div>
+    <div class="ambient ambient-2"></div>
+    <div class="noise"></div>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header class="navbar">
+
+        <!-- BRAND -->
+
+        <a href="/home"
+           class="brand">
+
+            <span class="brand-mark"></span>
+
+            K2BT
+
+        </a>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="main-nav">
+
+            <a href="/home"
+               class="nav-link active">
+                HOME
+            </a>
+
+            <a href="#trending"
+               class="nav-link">
+                DISCOVER
+            </a>
+
+        </nav>
+
+
+        <!-- RIGHT -->
+
+        <div class="nav-right">
+
+            <!-- SEARCH -->
+
+            <button
+                    class="search-button"
+                    id="searchButton"
+                    type="button">
+
+                <span>⌕</span>
+
+                <span class="search-text">
+                    Search
+                </span>
+
+            </button>
+
+
+            <!-- PROFILE -->
+
+            <div class="profile">
+
+                <div class="profile-avatar">
+
+                    <span
+                            th:text="${user != null
+                            && user.name != null
+                            && !user.name.isEmpty()
+                            ? user.name.substring(0,1).toUpperCase()
+                            : 'U'}">
+
+                        U
+
+                    </span>
+
+                </div>
+
+
+                <div class="profile-info">
+
+                    <span
+                            class="profile-name"
+                            th:text="${user != null
+                            ? user.name
+                            : 'User'}">
+
+                        User
+
+                    </span>
+
+                    <span class="profile-label">
+                        K2BT MEMBER
+                    </span>
+
+                </div>
+
+
+                <button
+                        class="profile-menu"
+                        id="profileMenu"
+                        type="button">
+
+                    ⋮
+
+                </button>
+
+
+                <!-- PROFILE DROPDOWN -->
+
+                <div
+                        class="dropdown"
+                        id="profileDropdown">
+
+                    <a href="#">
+                        Profile
+                    </a>
+
+                    <a href="#">
+                        Settings
+                    </a>
+
+                    <a href="/playlists">
+                        Playlists
+                    </a>
+
+                    <div class="dropdown-line"></div>
+
+                    <a href="/admin/songs">
+                        ＋ Add Song
+                    </a>
+
+                    <div class="dropdown-line"></div>
+
+                    <a
+                            href="/logout"
+                            class="logout">
+
+                        Log out
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         SEARCH OVERLAY
+    ====================================================== -->
+
+    <div
+            class="search-overlay"
+            id="searchOverlay">
+
+        <div class="search-box">
+
+            <button
+                    class="close-search"
+                    id="closeSearch"
+                    type="button">
+
+                ×
+
+            </button>
+
+            <span class="search-icon">
+                ⌕
+            </span>
+
+            <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search songs, artists, albums..."
+                    autocomplete="off">
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main>
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="hero-eyebrow">
+
+                    <span class="live-dot"></span>
+
+                    FEATURED THIS WEEK
+
+                </div>
+
+
+                <h1>
+
+                    MUSIC
+
+                    <span>
+                        THAT
+                    </span>
+
+                    MOVES YOU.
+
+                </h1>
+
+
+                <p class="hero-description">
+
+                    Discover new sounds, revisit old favorites,
+                    and find the soundtrack to every moment.
+
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <button
+                            class="primary-button"
+                            id="heroPlayButton"
+                            type="button">
+
+                        <span class="play-icon">
+                            ▶
+                        </span>
+
+                        PLAY NOW
+
+                    </button>
+
+
+                    <button
+                            class="secondary-button"
+                            id="exploreButton"
+                            type="button">
+
+                        EXPLORE MUSIC
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <!-- HERO STATS -->
+
+                <div class="hero-meta">
+
+                    <!-- TRACKS -->
+
+                    <div>
+
+                        <strong
+                                th:text="${songs != null
+                                ? songs.size()
+                                : 0}">
+
+                            0
+
+                        </strong>
+
+                        <span>
+                            TRACKS
+                        </span>
+
+                    </div>
+
+
+                    <!-- ARTISTS -->
+
+                    <div
+                            th:if="${artists != null
+                            && !artists.isEmpty()}">
+
+                        <strong
+                                th:text="${artists.size()}">
+
+                            0
+
+                        </strong>
+
+                        <span>
+                            ARTISTS
+                        </span>
+
+                    </div>
+
+
+                    <!-- ALBUMS -->
+
+                    <div
+                            th:if="${albums != null
+                            && !albums.isEmpty()}">
+
+                        <strong
+                                th:text="${albums.size()}">
+
+                            0
+
+                        </strong>
+
+                        <span>
+                            ALBUMS
+                        </span>
+
+                    </div>
+
+
+                    <!-- PLAYLISTS -->
+
+                    <div
+                            th:if="${playlists != null
+                            && !playlists.isEmpty()}">
+
+                        <strong
+                                th:text="${playlists.size()}">
+
+                            0
+
+                        </strong>
+
+                        <span>
+                            PLAYLISTS
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- HERO ART -->
+
+            <div class="hero-art">
+
+                <div class="hero-glow"></div>
+
+                <div class="hero-image">
+
+                    <img
+                            src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1200&q=85"
+                            alt="K2BT Music">
+
+                    <div class="hero-image-overlay"></div>
+
+                </div>
+
+
+                <div class="hero-label">
+
+                    <span>
+                        NOW PLAYING
+                    </span>
+
+                    <strong id="heroSongTitle">
+                        K2BT
+                    </strong>
+
+                    <small>
+                        K2BT MUSIC EXPERIENCE
+                    </small>
+
+                </div>
+
+
+                <div class="hero-number">
+                    01
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TRENDING SONGS
+        ================================================== -->
+
+        <section
+                class="music-section"
+                id="trending"
+                th:if="${trendingSongs != null
+                && !trendingSongs.isEmpty()}">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-number">
+                        01
+                    </span>
+
+                    <h2>
+                        TRENDING NOW
+                    </h2>
+
+                </div>
+
+
+                <button
+                        type="button"
+                        class="view-all"
+                        id="trendingViewAll">
+
+                    VIEW ALL →
+
+                </button>
+
+            </div>
+
+
+            <div class="song-grid">
+
+                <article
+                        class="song-card"
+                        th:each="song, stat : ${trendingSongs}"
+
+                        th:attr="
+                            data-id=${song.id},
+                            data-title=${song.title},
+                            data-artist=${song.artist != null
+                                ? song.artist.name
+                                : ''},
+                            data-album=${song.album != null
+                                ? song.album.name
+                                : ''},
+                            data-genre=${song.genre},
+                            data-image=${song.coverUrl},
+                            data-audio=${song.audioUrl}
+                        ">
+
+                    <div class="cover">
+
+                        <img
+                                th:src="${song.coverUrl}"
+                                th:alt="${song.title}"
+                                loading="lazy">
+
+                        <button
+                                class="card-play"
+                                type="button"
+                                aria-label="Play song">
+
+                            ▶
+
+                        </button>
+
+
+                        <span
+                                class="track-number"
+                                th:text="${stat.count < 10
+                                ? '0' + stat.count
+                                : stat.count}">
+
+                            01
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="song-info">
+
+                        <h3 th:text="${song.title}">
+                            Song Title
+                        </h3>
+
+                        <p
+                                th:text="${song.artist != null
+                                ? song.artist.name
+                                : 'Unknown Artist'}">
+
+                            Artist
+
+                        </p>
+
+                    </div>
+
+
+                    <span class="duration">
+                        —
+                    </span>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             NO SONGS
+        ================================================== -->
+
+        <section
+                class="music-section"
+                th:if="${songs == null
+                || songs.isEmpty()}">
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    ♪
+                </div>
+
+                <h3>
+                    No songs yet
+                </h3>
+
+                <p>
+                    Your music library is waiting
+                    for its first track.
+                </p>
+
+                <a
+                        href="/admin/songs"
+                        class="empty-button">
+
+                    ＋ ADD FIRST SONG
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ARTISTS
+        ================================================== -->
+
+        <section
+                class="music-section"
+                id="artistsSection"
+                th:if="${artists != null
+                && !artists.isEmpty()}">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-number">
+                        02
+                    </span>
+
+                    <h2>
+                        ARTISTS
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="song-grid artist-grid">
+
+                <a
+                        class="song-card artist-card"
+
+                        th:each="artist : ${artists}"
+
+                        th:href="@{/artist/{id}(id=${artist.id})}">
+
+                    <div class="cover">
+
+                        <img
+                                th:src="${artist.imageUrl != null
+                                && !artist.imageUrl.isEmpty()
+                                ? artist.imageUrl
+                                : '/images/default-artist.jpg'}"
+
+                                th:alt="${artist.name}"
+
+                                loading="lazy">
+
+                    </div>
+
+
+                    <div class="song-info">
+
+                        <h3 th:text="${artist.name}">
+                            Artist
+                        </h3>
+
+                        <p>
+                            ARTIST
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ALBUMS
+        ================================================== -->
+
+        <section
+                class="music-section"
+                id="albumsSection"
+                th:if="${albums != null
+                && !albums.isEmpty()}">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-number">
+                        03
+                    </span>
+
+                    <h2>
+                        ALBUMS
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="song-grid album-grid">
+
+                <a
+                        class="song-card album-card"
+
+                        th:each="album : ${albums}"
+
+                        th:href="@{/album/{id}(id=${album.id})}">
+
+                    <div class="cover">
+
+                        <img
+                                th:src="${album.coverUrl != null
+                                && !album.coverUrl.isEmpty()
+                                ? album.coverUrl
+                                : '/images/default-album.jpg'}"
+
+                                th:alt="${album.name}"
+
+                                loading="lazy">
+
+                    </div>
+
+
+                    <div class="song-info">
+
+                        <h3 th:text="${album.name}">
+                            Album
+                        </h3>
+
+                        <p
+                                th:text="${album.artist != null
+                                ? album.artist.name
+                                : 'Unknown Artist'}">
+
+                            Artist
+
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             MADE FOR YOU
+        ================================================== -->
+
+        <section
+                class="music-section"
+                id="madeForYouSection"
+                th:if="${madeForYou != null
+                && !madeForYou.isEmpty()}">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-number">
+                        04
+                    </span>
+
+                    <h2>
+                        MADE FOR YOU
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="song-grid">
+
+                <article
+                        class="song-card"
+
+                        th:each="song, stat : ${madeForYou}"
+
+                        th:attr="
+                            data-id=${song.id},
+                            data-title=${song.title},
+                            data-artist=${song.artist != null
+                                ? song.artist.name
+                                : ''},
+                            data-album=${song.album != null
+                                ? song.album.name
+                                : ''},
+                            data-genre=${song.genre},
+                            data-image=${song.coverUrl},
+                            data-audio=${song.audioUrl}
+                        ">
+
+                    <div class="cover">
+
+                        <img
+                                th:src="${song.coverUrl}"
+                                th:alt="${song.title}"
+                                loading="lazy">
+
+                        <button
+                                class="card-play"
+                                type="button"
+                                aria-label="Play song">
+
+                            ▶
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="song-info">
+
+                        <h3 th:text="${song.title}">
+                            Song
+                        </h3>
+
+                        <p
+                                th:text="${song.artist != null
+                                ? song.artist.name
+                                : 'Unknown Artist'}">
+
+                            Artist
+
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PLAYLISTS
+             ONLY WHEN USER HAS PLAYLIST DATA
+        ================================================== -->
+
+        <section
+                class="music-section"
+                id="playlistsSection"
+
+                th:if="${playlists != null
+                && !playlists.isEmpty()}">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-number">
+                        05
+                    </span>
+
+                    <h2>
+                        PLAYLISTS
+                    </h2>
+
+                </div>
+
+
+                <!-- GO TO ALL PLAYLISTS -->
+
+                <a
+                        href="/playlists"
+                        class="view-all">
+
+                    VIEW ALL →
+
+                </a>
+
+            </div>
+
+
+            <div class="song-grid">
+
+                <!-- =================================================
+                     PLAYLIST CARD
+
+                     KHÔNG:
+                     data-audio
+                     card-play
+                ================================================== -->
+
+                <a
+                        class="song-card playlist-card"
+
+                        th:each="playlist : ${playlists}"
+
+                        th:href="@{/playlist/{id}(id=${playlist.id})}">
+
+                    <div class="cover playlist-cover">
+
+                        <div class="playlist-cover-icon">
+                            ♪
+                        </div>
+
+                        <div class="playlist-play-overlay">
+                            →
+                        </div>
+
+                    </div>
+
+
+                    <div class="song-info">
+
+                        <h3
+                                th:text="${playlist.name}">
+
+                            Playlist
+
+                        </h3>
+
+                        <p>
+                            PLAYLIST
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ALL SONGS
+        ================================================== -->
+
+        <section
+                class="music-section all-songs-section"
+                id="allSongsSection"
+                style="display:none;">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-number">
+                        ALL
+                    </span>
+
+                    <h2>
+                        ALL SONGS
+                    </h2>
+
+                </div>
+
+
+                <button
+                        type="button"
+                        class="view-all"
+                        id="closeAllSongs">
+
+                    CLOSE ↑
+
+                </button>
+
+            </div>
+
+
+            <div
+                    class="all-songs-list"
+                    id="allSongsList">
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         MUSIC PLAYER
+    ====================================================== -->
+
+    <div
+            class="music-player"
+            id="musicPlayer">
+
+        <!-- CURRENT SONG -->
+
+        <div class="player-song">
+
+            <div class="player-cover">
+
+                <img
+                        id="playerCover"
+
+                        src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=200&q=80"
+
+                        alt="Cover">
+
+            </div>
+
+
+            <div class="player-info">
+
+                <strong id="playerTitle">
+                    Nothing playing
+                </strong>
+
+                <span id="playerArtist">
+                    K2BT
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONTROLS -->
+
+        <div class="player-center">
+
+            <div class="player-controls">
+
+                <button
+                        id="shuffleButton"
+                        type="button"
+                        aria-label="Shuffle">
+
+                    ⤨
+
+                </button>
+
+
+                <button
+                        id="previousButton"
+                        type="button"
+                        aria-label="Previous">
+
+                    |◀
+
+                </button>
+
+
+                <button
+                        class="main-play"
+                        id="mainPlayButton"
+                        type="button"
+                        aria-label="Play">
+
+                    ▶
+
+                </button>
+
+
+                <button
+                        id="nextButton"
+                        type="button"
+                        aria-label="Next">
+
+                    ▶|
+
+                </button>
+
+
+                <button
+                        id="repeatButton"
+                        type="button"
+                        aria-label="Repeat">
+
+                    ↻
+
+                </button>
+
+            </div>
+
+
+            <!-- PROGRESS -->
+
+            <div class="progress-wrapper">
+
+                <span id="currentTime">
+                    0:00
+                </span>
+
+
+                <input
+                        type="range"
+                        id="progressBar"
+                        min="0"
+                        max="0"
+                        value="0"
+                        step="0.1"
+                        aria-label="Song progress">
+
+
+                <span id="duration">
+                    0:00
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- VOLUME -->
+
+        <div class="player-right">
+
+            <button
+                    id="volumeButton"
+                    type="button"
+                    aria-label="Mute">
+
+                🔊
+
+            </button>
+
+
+            <input
+                    type="range"
+                    id="volumeBar"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="0.8"
+                    aria-label="Volume">
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         AUDIO
+    ====================================================== -->
+
+    <audio
+            id="audioPlayer"
+            preload="metadata">
+    </audio>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script th:src="@{/js/home.js}"></script>
+
+</body>
+
+</html>

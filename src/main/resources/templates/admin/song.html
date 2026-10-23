@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SONORA — Add Song</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/song.css}">
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="header">
+
+        <div class="logo">
+            SONORA
+        </div>
+
+        <a href="/home"
+           class="back-btn">
+            ← Back
+        </a>
+
+    </header>
+
+
+    <!-- =====================================================
+         TITLE
+    ====================================================== -->
+
+    <section class="title-area">
+
+        <div class="eyebrow">
+            Music Library
+        </div>
+
+        <h1>
+            Add Song.
+        </h1>
+
+        <p class="subtitle">
+            Upload a new track to your music library.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         SUCCESS MESSAGE
+    ====================================================== -->
+
+    <div
+        class="message success"
+        th:if="${success}"
+        th:text="${success}">
+    </div>
+
+
+    <!-- =====================================================
+         ERROR MESSAGE
+    ====================================================== -->
+
+    <div
+        class="message error"
+        th:if="${error}"
+        th:text="${error}">
+    </div>
+
+
+    <!-- =====================================================
+         SONG FORM
+    ====================================================== -->
+
+    <form
+        class="song-card"
+        th:action="@{/admin/songs/upload}"
+        method="post"
+        enctype="multipart/form-data">
+
+
+        <!-- =================================================
+             COVER
+        ================================================== -->
+
+        <div class="cover-section">
+
+            <div class="cover-preview">
+
+                <img
+                    id="coverPreview"
+                    alt="Cover preview">
+
+                <div
+                    class="cover-placeholder"
+                    id="coverPlaceholder">
+
+                    <div class="cover-icon">
+                        ♪
+                    </div>
+
+                    <span>
+                        No cover selected
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <label
+                for="cover"
+                class="file-label">
+
+                CHOOSE COVER
+
+            </label>
+
+
+            <input
+                type="file"
+                id="cover"
+                name="cover"
+                accept="image/jpeg,image/png,image/webp"
+                required>
+
+        </div>
+
+
+        <!-- =================================================
+             FORM SECTION
+        ================================================== -->
+
+        <div class="form-section">
+
+
+            <!-- =================================================
+                 SONG TITLE
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label for="title">
+                    Song Title
+                </label>
+
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="Enter song title"
+                    autocomplete="off"
+                    required>
+
+            </div>
+
+
+            <!-- =================================================
+                 ARTIST
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label for="artist">
+                    Artist
+                </label>
+
+                <input
+                    type="text"
+                    id="artist"
+                    name="artist"
+                    placeholder="Enter artist name"
+                    autocomplete="off"
+                    required>
+
+                <small class="field-hint">
+                    Artist sẽ được tự động tạo nếu chưa tồn tại.
+                </small>
+
+            </div>
+
+
+            <!-- =================================================
+                 ALBUM
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label for="album">
+                    Album
+                </label>
+
+                <input
+                    type="text"
+                    id="album"
+                    name="album"
+                    placeholder="Enter album name"
+                    autocomplete="off">
+
+                <small class="field-hint">
+                    Để trống nếu đây là Single.
+                    Album sẽ được tự động tạo nếu chưa tồn tại.
+                </small>
+
+            </div>
+
+
+            <!-- =================================================
+                 GENRE
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label for="genre">
+                    Genre
+                </label>
+
+                <select
+                    id="genre"
+                    name="genre">
+
+                    <option value="">
+                        Select genre
+                    </option>
+
+                    <option value="Pop">
+                        Pop
+                    </option>
+
+                    <option value="R&B">
+                        R&B
+                    </option>
+
+                    <option value="Hip Hop">
+                        Hip Hop
+                    </option>
+
+                    <option value="Rock">
+                        Rock
+                    </option>
+
+                    <option value="Electronic">
+                        Electronic
+                    </option>
+
+                    <option value="Indie">
+                        Indie
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- =================================================
+                 AUDIO
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label>
+                    Audio File
+                </label>
+
+                <div class="audio-upload">
+
+                    <label
+                        for="audio"
+                        class="audio-button">
+
+                        <div class="audio-icon">
+                            ♪
+                        </div>
+
+                        <div class="audio-text">
+
+                            <strong id="audioName">
+                                Choose MP3 file
+                            </strong>
+
+                            <span>
+                                MP3 only
+                            </span>
+
+                        </div>
+
+                    </label>
+
+
+                    <input
+                        type="file"
+                        id="audio"
+                        name="audio"
+                        accept=".mp3,audio/mpeg"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SUBMIT
+            ================================================== -->
+
+            <button
+                type="submit"
+                class="submit-btn">
+
+                UPLOAD SONG
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================== -->
+
+<script
+    th:src="@{/js/song.js}">
+</script>
+
+</body>
+
+</html>

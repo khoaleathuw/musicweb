@@ -1,0 +1,488 @@
+/* =========================================
+   ARTIST PAGE
+========================================= */
+
+.artist-page {
+    min-height: 100vh;
+    padding-bottom: 150px;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.artist-hero {
+    min-height: 440px;
+
+    position: relative;
+
+    display: flex;
+    align-items: flex-end;
+
+    padding: 80px 7vw 55px;
+
+    overflow: hidden;
+}
+
+
+.artist-hero-bg {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    filter: blur(40px);
+
+    transform: scale(1.15);
+
+    opacity: .35;
+}
+
+
+.artist-hero-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(7,7,7,.15),
+            rgba(7,7,7,.96)
+        );
+}
+
+
+.artist-hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+    max-width: 1400px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 35px;
+}
+
+
+/* =========================================
+   COVER
+========================================= */
+
+.artist-cover {
+    width: 230px;
+    height: 230px;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.55);
+}
+
+
+.artist-cover img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================================
+   INFO
+========================================= */
+
+.artist-info {
+    padding-bottom: 5px;
+}
+
+
+.artist-back {
+    display: inline-flex;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 25px;
+
+    opacity: .6;
+
+    transition: .2s;
+}
+
+
+.artist-back:hover {
+    opacity: 1;
+
+    transform: translateX(-4px);
+}
+
+
+.artist-label {
+    display: block;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 4px;
+
+    opacity: .65;
+
+    margin-bottom: 12px;
+}
+
+
+.artist-info h1 {
+    margin: 0 0 18px;
+
+    font-size: clamp(45px, 7vw, 90px);
+
+    line-height: .9;
+
+    font-weight: 900;
+
+    letter-spacing: -4px;
+}
+
+
+.artist-info p {
+    margin: 0;
+
+    font-size: 14px;
+
+    opacity: .6;
+}
+
+
+/* =========================================
+   SONGS
+========================================= */
+
+.artist-songs {
+    max-width: 1400px;
+
+    margin: auto;
+
+    padding: 55px 7vw;
+}
+
+
+.artist-section-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 22px;
+}
+
+
+.artist-section-header h2 {
+    margin: 0;
+
+    font-size: 24px;
+
+    font-weight: 900;
+
+    letter-spacing: -1px;
+}
+
+
+.artist-section-header span {
+    font-size: 12px;
+
+    opacity: .4;
+}
+
+
+/* =========================================
+   SONG LIST
+========================================= */
+
+.artist-song-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+.artist-song {
+    display: grid;
+
+    grid-template-columns:
+        45px
+        60px
+        minmax(0, 1fr)
+        220px
+        50px;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 10px 14px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+
+.artist-song:hover {
+    background: rgba(255,255,255,.06);
+}
+
+
+.song-index {
+    text-align: center;
+
+    font-size: 13px;
+
+    opacity: .35;
+}
+
+
+/* =========================================
+   SONG COVER
+========================================= */
+
+.song-cover {
+    width: 60px;
+    height: 60px;
+
+    overflow: hidden;
+
+    border-radius: 5px;
+}
+
+
+.song-cover img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================================
+   SONG INFO
+========================================= */
+
+.song-details {
+    min-width: 0;
+}
+
+
+.song-details h3 {
+    margin: 0 0 5px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.song-details p {
+    margin: 0;
+
+    font-size: 11px;
+
+    opacity: .4;
+}
+
+
+/* =========================================
+   ALBUM
+========================================= */
+
+.song-album {
+    font-size: 12px;
+
+    opacity: .45;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================
+   PLAY
+========================================= */
+
+.song-play {
+    width: 38px;
+    height: 38px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: white;
+
+    color: black;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transition: .2s;
+}
+
+
+.artist-song:hover .song-play {
+    opacity: 1;
+}
+
+
+.song-play:hover {
+    transform: scale(1.08);
+}
+
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.artist-empty {
+    padding: 80px 20px;
+
+    text-align: center;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius: 10px;
+}
+
+
+.artist-empty .empty-icon {
+    font-size: 40px;
+
+    margin-bottom: 20px;
+
+    opacity: .4;
+}
+
+
+.artist-empty h3 {
+    margin: 0 0 10px;
+
+    font-size: 18px;
+}
+
+
+.artist-empty p {
+    margin: 0;
+
+    opacity: .45;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .artist-hero {
+        min-height: 600px;
+
+        padding-top: 60px;
+    }
+
+
+    .artist-hero-content {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 25px;
+    }
+
+
+    .artist-cover {
+        width: 180px;
+        height: 180px;
+    }
+
+
+    .artist-info h1 {
+        letter-spacing: -2px;
+    }
+
+
+    .artist-song {
+        grid-template-columns:
+            30px
+            50px
+            minmax(0,1fr)
+            40px;
+
+        gap: 10px;
+    }
+
+
+    .song-cover {
+        width: 50px;
+        height: 50px;
+    }
+
+
+    .song-album {
+        display: none;
+    }
+
+
+    .song-play {
+        opacity: 1;
+    }
+
+}
